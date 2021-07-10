@@ -5,6 +5,8 @@ import random
 def fast_count_segments(starts, ends, points):
     cnt = [0] * len(points)
     #write your code here
+    for i in range(len(starts)):
+
     return cnt
 
 def naive_count_segments(starts, ends, points):
