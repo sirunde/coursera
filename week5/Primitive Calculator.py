@@ -7,41 +7,23 @@ def get_change(m):
     list[1] = 0
 
     for i in range(2, m+1):
-        if i%2 == 0:
-            if i%3 ==0:
-                if list[i - 1] <= list[i // 2] and list[i-1] <= list[i//3]:
-                    list[i] += list[i - 1] + 1
-                elif list[i//3] <= list[i//2] and list[i//3] <= list[i-1]:
+
+        if i % 3 == 0:
+            if i % 2 == 0:
+                if list[i//3] <= list[i-1] and list[i//3] <= list[i//2]:
+                    list[i] += list[i//3] + 1
+            else:
+                if list[i//3] <= list[i-1]:
                     list[i] += list[i//3] + 1
 
-                else:
-                    list[i] += list[i//2]+1
-            else:
+        elif i % 2 == 0:
+            if list[i//2] <= list[i-1]:
+                list[i] += list[i//2] + 1
 
-                if list[i - 1] <= list[i // 2]:
-                    list[i] += list[i - 1] + 1
+        else:
+            list[i] += list[i-1] + 1
 
-                else:
-                    list[i] += list[i // 2] + 1
-
-        elif i%3 == 0:
-            if i%2 == 0:
-                if list[i-1] <= list[i//3] and list[i-1] <= list[i//2]:
-                    list[i] += list[i-1]+1
-                elif list[i//2] <= list[i-1] and list[i//2] <= list[i//3]:
-                    list[i] += list[i//2]
-
-                else:
-                    list[i] += list[i//3]
-
-            else:
-                if list[i-1] <= list[i//3]:
-                    list[i] += list[i-1]
-
-                else:
-                    list[i] 
-
-    return list[m]
+    return list
 
 
 def sequen(n):
@@ -60,28 +42,12 @@ def sequen(n):
         # Write hop count from current index to 1. Hop count incremented by 1.
         hop_count[i] = min_hops + 1
 
-def optimal_sequence(n):
-    sequence = []
-    while n >= 1:
-        sequence.append(n)
-        if n % 3 == 0:
-
-            n = n // 3
-
-        elif n % 2 == 0:
-
-            if (n-1)% 3 == 0:
-                n -= 1
-
-            else:
-                n = n // 2
-
-        else:
-            n = n - 1
-
-    return reversed(sequence)
+def test(n):
+    a = get_change(n)
+    print(a)
 
 if __name__ == "__main__":
+    print(get_change(4))
     sequen(5)
     input = sys.stdin.read()
     n = int(input)

@@ -3,9 +3,7 @@ import sys
 
 def get_change(m):
     #write your code here
-    minimum(0)
     list = (m+1)*[0]
-    list[0] = 0
 
     for i in range(1, m+1):
         if i >= 3:
