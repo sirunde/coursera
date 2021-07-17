@@ -1,9 +1,6 @@
 # Uses python3
 import sys
 
-def minimum(n):
-
-    return(n)
 def get_change(m):
     #write your code here
     minimum(0)
