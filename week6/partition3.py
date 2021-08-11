@@ -2,37 +2,59 @@
 import sys
 import itertools
 
+def partiton(A, B = 3):
+    total = sum(A)
+    rem = total%B
+    third = total//B
 
-def solution(values):
-    total = sum(values)
-    if len(values) < 3 or total % 3:  # 1
-        return False
-    third = total // 3
-    table = [[0] * (len(values) + 1) for _ in range(third + 1)]  # 2
+    if rem > 0 or max(A) > third or len(A) < B :
+        return 0
+    A = [0]+ A
+    matrix = [[0 for i in range(len(A))] for j in range(third+1)]
+    memory = [[0 for i in range(len(A))] for j in range(third+1)]
 
-    for i in range(1, third + 1):
-        for j in range(1, len(values) + 1):  # 3
-            ii = i - values[j - 1]  # 4
-            if values[j - 1] == i or (ii > 0 and table[ii][j - 1]):  # 5
-                table[i][j] = 1 if table[i][j - 1] == 0 else 2
-            else:
-                table[i][j] = table[i][j - 1]  # 6
 
-    return 1 if table[-1][-1] == 2 else 0
-def partition3(A):
-    for c in itertools.product(range(3), repeat=len(A)):
-        sums = [None] * 3
-        for i in range(3):
-            sums[i] = sum(A[k] for k in range(len(A)) if c[k] == i)
+    for i in range(1, len(A)):
+        for j in range(1, third+1):
 
-        if sums[0] == sums[1] and sums[1] == sums[2]:
-            return 1
+            matrix[j][i] = matrix[j][i - 1]
+            memory[j][i] = memory[j][i-1]
+            if A[i] <= j:
+                val = matrix[j - A[i]][i - 1] + A[i]
 
-    return 0
+                if matrix[j][i] < val:
+                    a = []
+                    b = memory[j-A[i]][i-1]
+                    if b == 0:
+                        a.append(b)
+                    else:
+                        a.extend(b)
+                    a.append(A[i])
+                    memory[j][i] = a
+                    matrix[j][i] = val
+                if matrix[j][i] == third:
+                    for i in (memory[j][i]):
+                        A.remove(i)
+                    break
+
+        else:
+            continue
+        break
+
+    if matrix[-1][-1] != third and matrix[-1][-1] != 0:
+        return 0
+
+    else:
+        if B > 1:
+
+            B -= 1
+            partiton(A, B)
+
+    return 1
 
 if __name__ == '__main__':
     input = sys.stdin.read()
     n, *A = list(map(int, input.split()))
-    print(solution(A))
+    print(partiton(A))
     # print(partition3(A))
 
